@@ -11,5 +11,31 @@
   "devDependencies": {
     "mocha": "^3.2.0",
     "should": "^11.2.0"
-  }
+  },
+  "name": "error3",
+  "description": "Error3 is an extended JS error. It designed to be simply serializable to be used in API. It supports error codes and unified convertion into json.",
+  "version": "1.0.0",
+  "bin": {
+    "error3": "cli.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rumkin/error3.git"
+  },
+  "keywords": [
+    "error",
+    "ext",
+    "err",
+    "errors",
+    "error",
+    "handling"
+  ],
+  "author": "rumkin",
+  "bugs": {
+    "url": "https://github.com/rumkin/error3/issues"
+  },
+  "homepage": "https://github.com/rumkin/error3#readme"
 }
