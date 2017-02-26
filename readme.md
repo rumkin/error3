@@ -1,7 +1,7 @@
 # Error3
 
 Error3 is an extended JS error. It designed to be simply serializable to be
-used in API. It supports code and unified json convertation.
+used in API. It supports error codes and unified convertion into json..
 
 ## API
 
