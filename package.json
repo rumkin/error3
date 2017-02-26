@@ -1,7 +1,7 @@
 {
-  "main": "build/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "[ -d build ] && rm -rf build; cp -r src build",
+    "build": "echo 'NOOP BUILD'",
     "start": "npm run build && node .",
     "cov": "npm run build && istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec test/**.spec.js",
     "test": "npm run build && mocha test/**.spec.js",
