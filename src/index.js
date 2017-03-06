@@ -1,22 +1,66 @@
 'use strict';
 
 class Error3 extends Error {
-    constructor(code, message, details) {
-        super(message);
+    constructor(code, ...args) {
+        let length = Math.min(args.length, 3);
+        let hasMessage = false;
+        let hasDetails = false;
+        let hasErrors = false;
+        let message;
+        let details;
+        let errors;
         
-        if (typeof message === 'object') {
-            details = message;
-            message = null;
+        for (let i = 0; i < length; i++) {
+            let arg = args[i];
+            
+            if (hasMessage && hasErrors && hasDetails) {
+                break;
+            }
+            
+            if (typeof arg === 'string') {
+                if (hasMessage) {
+                    break;
+                }
+                
+                // This is a message
+                message = arg;
+                hasMessage = true;
+            }
+            else if (Array.isArray(arg)) {
+                if (hasErrors) {
+                    break;
+                }
+                
+                errors = arg.slice();
+                hasErrors = true;
+                hasMessage = true;
+                hasDetails = true;
+            }
+            else if (arg && arg instanceof Object){
+                if (hasDetails) {
+                    break;
+                }
+                
+                details = arg;
+                hasDetails = true;
+                hasMessage = true;
+            }
+            else if (arg !== null) {
+                break;
+            }
         }
         
         if (! message) {
             message = code.replace(/_/g, ' ');
         }
         
+        super(message);
+        
         this.name = this.constructor.name;
         this.code = code;
         this.message = message;
         this.details = Object.assign({}, details);
+        this.errors = errors || [];
     }
     
     valueOf() {
