@@ -36,6 +36,16 @@ class Error3 extends Error {
                 hasMessage = true;
                 hasDetails = true;
             }
+            else if (arg instanceof Error) {
+                if (hasErrors) {
+                    break;
+                }
+                
+                errors = [arg];
+                hasErrors = true;
+                hasMessage = true;
+                hasDetails = true;
+            }
             else if (arg && arg instanceof Object){
                 if (hasDetails) {
                     break;

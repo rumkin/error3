@@ -19,6 +19,21 @@ describe('Error3', function() {
             should(error.errors).has.lengthOf(0);
         });
         
+        it('Should instantiate with code and error', () => {
+            let error = new Error3('test_ok', new Error('test'));
+            should(error).hasOwnProperty('code');
+            should(error).hasOwnProperty('message');
+            should(error).hasOwnProperty('details');
+            should(error).hasOwnProperty('errors');
+            
+            should(error.code).be.equal('test_ok');
+            should(error.message).be.equal('test ok');
+            should(error.details).be.deepEqual({});
+            
+            should(error.errors).has.lengthOf(1);
+            should(error.errors[0]).be.instanceOf(Error);
+        });
+        
         it('Should instantiate with code and errors', () => {
             let error = new Error3('test_ok', [new Error('test')]);
             should(error).hasOwnProperty('code');

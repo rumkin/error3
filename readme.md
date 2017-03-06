@@ -9,7 +9,7 @@ used in API. It supports error codes, nested errors and unified convertion into 
 
 ## API
 
-### Error3(code:string[, message:string][, details:object][, errors:Error[]])
+### Error3(code:string[, message:string][, details:object][, errors:Error|Error[]])
 
 Error object constructor has only one required argument `code` it should be
 string separated with underscores in lower case. Other two are optional. Message
