@@ -1,10 +1,9 @@
 {
   "main": "src/index.js",
   "scripts": {
-    "build": "echo 'NOOP BUILD'",
-    "start": "npm run build && node .",
-    "cov": "npm run build && istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec test/**.spec.js",
-    "test": "npm run build && mocha test/**.spec.js",
+    "start": "node .",
+    "cov": "istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec test/**.spec.js",
+    "test": "mocha test/**.spec.js",
     "prepublish": "npm run build"
   },
   "license": "MIT",
