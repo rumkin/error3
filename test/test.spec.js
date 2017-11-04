@@ -127,14 +127,14 @@ describe('Error3', function() {
     });
 
     it('Should specify error name for extensions', () => {
-       class MyError extends Error3 {}
+        class MyError extends Error3 {}
 
-       const error = new MyError('test');
-       should(error).hasOwnProperty('name', 'MyError');
+        const error = new MyError('test');
+        should(error).hasOwnProperty('name', 'MyError');
     });
 
     it('Should create error from JSON', () => {
-       const error = Error3.fromJSON({
+        const error = Error3.from({
            code: 'code',
            message: 'Message',
            details: {
@@ -144,16 +144,16 @@ describe('Error3', function() {
                code: 'invalid',
                message: 'Invalid',
            }]
-       });
+        });
 
-       should(error.code).be.equal('code');
-       should(error.message).be.equal('Message');
-       should(error.details).be.deepEqual({value: 1});
+        should(error.code).be.equal('code');
+        should(error.message).be.equal('Message');
+        should(error.details).be.deepEqual({value: 1});
 
-       const {errors} = error;
-       should(errors).be.instanceOf(Array);
-       should(errors).have.lengthOf(1);
-       should(errors[0]).ownProperty('code').equal('invalid');
-       should(errors[0]).ownProperty('message').equal('Invalid');
+        const {errors} = error;
+        should(errors).be.instanceOf(Array);
+        should(errors).have.lengthOf(1);
+        should(errors[0]).ownProperty('code').equal('invalid');
+        should(errors[0]).ownProperty('message').equal('Invalid');
     });
 });

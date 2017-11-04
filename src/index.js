@@ -97,12 +97,17 @@ class Error3 extends Error {
         return this.valueOf();
     }
 
-    static fromJSON(value) {
+    static from(value) {
         const errors = value.errors
-            ? value.errors.map(this.fromJSON.bind(this))
-            : [];
+        ? value.errors.map(this.fromJSON.bind(this))
+        : [];
 
         return new this(value.code, value.message, value.details || {}, errors);
+    }
+
+    static fromJSON(...args) {
+        console.error('Deprecated method fromJSON use from instead.');
+        return this.from(...args);
     }
 }
 
