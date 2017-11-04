@@ -13,7 +13,7 @@ describe('Error3', function() {
             should(error).hasOwnProperty('errors');
 
             should(error.code).be.equal('test_ok');
-            should(error.message).be.equal('test ok');
+            should(error.message).be.equal('Test ok');
             should(error.details).be.deepEqual({});
 
             should(error.errors).has.lengthOf(0);
@@ -27,7 +27,7 @@ describe('Error3', function() {
             should(error).hasOwnProperty('errors');
 
             should(error.code).be.equal('test_ok');
-            should(error.message).be.equal('test ok');
+            should(error.message).be.equal('Test ok');
             should(error.details).be.deepEqual({});
 
             should(error.errors).has.lengthOf(1);
@@ -42,7 +42,7 @@ describe('Error3', function() {
             should(error).hasOwnProperty('errors');
 
             should(error.code).be.equal('test_ok');
-            should(error.message).be.equal('test ok');
+            should(error.message).be.equal('Test ok');
             should(error.details).be.deepEqual({});
 
             should(error.errors).has.lengthOf(1);
@@ -57,7 +57,7 @@ describe('Error3', function() {
             should(error).hasOwnProperty('errors');
 
             should(error.code).be.equal('test_ok');
-            should(error.message).be.equal('test ok');
+            should(error.message).be.equal('Test ok');
             should(error.details).be.deepEqual({a: 1});
 
             should(error.errors).has.lengthOf(1);

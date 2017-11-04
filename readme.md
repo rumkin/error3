@@ -17,17 +17,22 @@ as a string and error details as an object. If message is not presented then
 it will be created from code. Details are cloned with native object assigning.
 
 ```javascript
-let error = new Error3('unknown_error');
+const error = new Error3('unknown_error');
 error.code // -> unknown_error
 error.message // -> Unknown error
 error.details // -> {}
 error.errors // -> []
+```
 
-let notFound = new Error3('not_found', 'File not found', {path: './index.js'}, [new Error3('test')]);
-notFound.code // -> not_found
-notFound.message // -> File not found
-notFound.details // -> {path: './index.js'}
-notFound.errors // -> [Error3('test')]
+Error could contain other error (or errors) caused current error throwing.
+It could be single error instance or array of errors:
+
+```javascript
+const error = new Error3('unknown_error', 'User not loaded', {userId: 1}, new Error3('other_error'));
+error.code // -> unknown_error
+error.message // -> User not loaded
+error.details // -> {userId: 1}
+error.errors // -> [Error3('other_error')]
 ```
 
 ### toJSON() -> string
@@ -40,7 +45,8 @@ Stringification into JSON use `code`, `message` and `details` properties. Exampl
     "message": "File not found",
     "details": {
         "path": "./index.js"
-    }
+    },
+    "errors": []
 }
 ```
 

@@ -74,7 +74,8 @@ class Error3 extends Error {
                 this.message = this.constructor[CODE](details);
             }
             else {
-                this.message = code.replace(/_/g, ' ');
+                this.message = code.charAt(0).toUpperCase()
+                    + code.slice(1).replace(/_/g, ' ');
             }
         }
         else {
