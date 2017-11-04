@@ -17,9 +17,9 @@ as a string and error details as an object. If message is not presented then
 it will be created from code. Details are cloned with native object assigning.
 
 ```javascript
-let error = new Error3('not_possible');
-error.code // -> not_possible
-error.message // -> Not possible
+let error = new Error3('unknown_error');
+error.code // -> unknown_error
+error.message // -> Unknown error
 error.details // -> {}
 error.errors // -> []
 
@@ -44,7 +44,24 @@ Stringification into JSON use `code`, `message` and `details` properties. Exampl
 }
 ```
 
-### Extension
+## Message formatter methods
+
+You can define custom message formatter for any code by creating uppercased
+constructor's method:
+
+```javascript
+Error3.FS_NOT_EXISTS = function({path}) {
+    return `File or directory "${path}" is not exists`;
+};
+
+const error = new Error3('fs_not_exists', {path: '/some/path'});
+
+error.code; // -> 'fs_not_exists'
+error.message; // -> 'File or directory "/some/path" not exists'
+error.details; // -> {path: '/some/path'}
+```
+
+## Inheritance
 
 Error3 is also designed to be simply extended. Note that constructor name will
 be using as a error name:
@@ -58,7 +75,6 @@ class MyError extends Error3 {}
 
 ```
 
-## License 
+## License
 
 MIT.
-

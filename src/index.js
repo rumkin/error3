@@ -2,73 +2,84 @@
 
 class Error3 extends Error {
     constructor(code, ...args) {
-        let length = Math.min(args.length, 3);
-        let hasMessage = false;
-        let hasDetails = false;
-        let hasErrors = false;
         let message;
         let details;
         let errors;
 
-        for (let i = 0; i < length; i++) {
-            let arg = args[i];
+        let gotMessage = false;
+        let gotDetails = false;
+        let gotErrors = false;
 
-            if (hasMessage && hasErrors && hasDetails) {
+        const length = Math.min(args.length, 3);
+
+        for (let i = 0; i < length; i++) {
+            const arg = args[i];
+
+            if (gotMessage && gotErrors && gotDetails) {
                 break;
             }
 
             if (typeof arg === 'string') {
-                if (hasMessage) {
+                if (gotMessage) {
                     break;
                 }
 
                 // This is a message
                 message = arg;
-                hasMessage = true;
+                gotMessage = true;
             }
             else if (Array.isArray(arg)) {
-                if (hasErrors) {
+                if (gotErrors) {
                     break;
                 }
 
                 errors = arg.slice();
-                hasErrors = true;
-                hasMessage = true;
-                hasDetails = true;
+                gotErrors = true;
+                gotMessage = true;
+                gotDetails = true;
             }
             else if (arg instanceof Error) {
-                if (hasErrors) {
+                if (gotErrors) {
                     break;
                 }
 
                 errors = [arg];
-                hasErrors = true;
-                hasMessage = true;
-                hasDetails = true;
+                gotErrors = true;
+                gotMessage = true;
+                gotDetails = true;
             }
             else if (arg && arg instanceof Object){
-                if (hasDetails) {
+                if (gotDetails) {
                     break;
                 }
 
                 details = arg;
-                hasDetails = true;
-                hasMessage = true;
+                gotDetails = true;
+                gotMessage = true;
             }
             else if (arg !== null) {
                 break;
             }
         }
 
-        if (! message) {
-            message = code.replace(/_/g, ' ');
-        }
-
-        super(message);
+        super();
 
         this.name = this.constructor.name;
         this.code = code;
-        this.message = message;
+
+
+        if (! message) {
+            const CODE = code.toUpperCase();
+            if (this.constructor[CODE]) {
+                this.message = this.constructor[CODE](details);
+            }
+            else {
+                this.message = code.replace(/_/g, ' ');
+            }
+        }
+        else {
+            this.message = message;
+        }
         this.details = Object.assign({}, details);
         this.errors = errors || [];
     }
@@ -78,6 +89,7 @@ class Error3 extends Error {
             code: this.code,
             message: this.message,
             details: this.details,
+            errors: this.errors,
         };
     }
 

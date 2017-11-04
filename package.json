@@ -3,8 +3,7 @@
   "scripts": {
     "start": "node .",
     "cov": "istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec test/**.spec.js",
-    "test": "mocha test/**.spec.js",
-    "prepublish": "npm run build"
+    "test": "mocha test/**.spec.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -13,7 +12,7 @@
   },
   "name": "error3",
   "description": "Error3 is an extended JS error. It designed to be simply serializable to be used in API. It supports error codes and unified convertion into json.",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "directories": {
     "test": "test"
   },
