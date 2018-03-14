@@ -1,11 +1,38 @@
 # Error3
 
-Error3 is an extended JS error. It designed to be simply serializable to be
-used in API. It supports error codes, nested errors and unified convertion into json:
+[![npm](https://img.shields.io/npm/v/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
+[![npm](https://img.shields.io/npm/dw/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
+[![Travis](https://img.shields.io/travis/rumkin/error3.svg?style=flat-square)](https://travis-ci.org/rumkin/error3)
 
-* Extandable.
-* Serializable.
-* API designed.
+Error3 is regular JS Error with extra power. It's designed to be simply to be
+used in API. It supports error codes, nested errors and conversion into JSON.
+
+It has 3 in the name in the same reason as eventemitter3 npm package.
+
+## Install
+
+Install via NPM:
+
+```bash
+npm i error3
+```
+
+## Usage
+
+Example of custom error creation.
+
+```javascript
+const Error = require('error3');
+
+class FsError extends Error {
+	static NOT_FOUND({path}) { // Method name is uppercased error code
+        return `File or directory "${path}" not found`;
+    }
+}
+
+throw new FsError('not_found', {path: '/some-file'});
+// > "FsError: [#not_found] File or directory "/some-file" not found"
+```
 
 ## API
 
@@ -53,10 +80,16 @@ Stringification into JSON use `code`, `message` and `details` properties. Exampl
 ## Message formatter methods
 
 You can define custom message formatter for any code by creating uppercased
-constructor's method:
+constructor's (static) method.
+
+```text
+(Object, Error[]) -> String
+```
+
+Example:
 
 ```javascript
-Error3.FS_NOT_EXISTS = function({path}) {
+Error3.FS_NOT_EXISTS = function({path}, errors) {
     return `File or directory "${path}" is not exists`;
 };
 
@@ -70,14 +103,16 @@ error.details; // -> {path: '/some/path'}
 ## Inheritance
 
 Error3 is also designed to be simply extended. Note that constructor name will
-be using as a error name:
+be using as an error name:
 
 ```
 
-class MyError extends Error3 {}
+Error3.TEST = () => ('This is test error');
 
-'' + new Error3('test'); // -> Error3: Test;
-'' + new MyError('test'); // -> MyError: Test;
+class HttpError extends Error3 {}
+
+String(new Error3('test')); // -> Error3: [#test] This is test error;
+String(new HttpError('test')); // -> HttpError: [#test] This is test error;
 
 ```
 
