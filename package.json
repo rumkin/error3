@@ -22,11 +22,13 @@
   },
   "keywords": [
     "error",
-    "ext",
-    "err",
     "errors",
-    "error",
-    "handling"
+    "throw",
+    "thrown",
+    "api",
+    "debug",
+    "troubleshooting",
+    "error handling"
   ],
   "author": "rumkin",
   "bugs": {
