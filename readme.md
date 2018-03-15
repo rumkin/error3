@@ -4,10 +4,11 @@
 [![npm](https://img.shields.io/npm/dw/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
 [![Travis](https://img.shields.io/travis/rumkin/error3.svg?style=flat-square)](https://travis-ci.org/rumkin/error3)
 
-Error3 is regular JS Error with extra power. It's designed to be simply to be
-used in API. It supports error codes, nested errors and conversion into JSON.
+Error3 is regular Error with extra power. It's designed to be extensible
+but easy to use. It supports error codes, message formatters and nested errors.
+For using in HTTP services it has JSON conversion.
 
-It has 3 in the name in the same reason as eventemitter3 npm package.
+> It has 3 in the name in the same reason as eventemitter3 npm package.
 
 ## Install
 
