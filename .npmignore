@@ -13,3 +13,4 @@ local/
 logs/
 pids/
 tmp/
+bin/
