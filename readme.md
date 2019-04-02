@@ -214,4 +214,4 @@ ValueOf returns plain object containing properties: `code`, `message`, `details`
 
 ## License
 
-MIT.
+MIT © [Rumkin](https://rumk.in)
