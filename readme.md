@@ -41,9 +41,10 @@ Though it has codes, message formatters and nested errors.
 * In browser:
   ```html
   <script src="https://unpkg.com/error3@3/dist/error3.min.js"></script>
-  <!-- ES module -->
-  <script src="https://unpkg.com/error3@3/dist/esm/error3.min.js"></script>
   ```
+  [CommonJS](https://unpkg.com/error3@3/dist/commonjs/) ·
+  [UMD](https://unpkg.com/error3@3/dist/) ·
+  [ESM](https://unpkg.com/error3@3/dist/esm/)
   > ⚠️ Remember about security! Add [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) checksum
   > from [checksum.txt](https://unpkg.com/error3@3/dist/checksum.txt).
 
