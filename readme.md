@@ -9,7 +9,7 @@
     <img alt="badge: npm downloads" src="https://img.shields.io/npm/dw/error3.svg?style=flat-square" />
   </a>
   <img alt="badge: size 0.9 KiB" src="https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square" />
-  <img alt="badge: badge: deps 0" src="https://img.shields.io/badge/deps-0-blue.svg?style=flat-square" />
+  <img alt="badge: deps 0" src="https://img.shields.io/badge/deps-0-blue.svg?style=flat-square" />
   <a aria-label="build status" href="https://travis-ci.org/rumkin/error3">
     <img alt="badge" src="https://img.shields.io/travis/rumkin/error3.svg?style=flat-square" />
   </a>
@@ -92,21 +92,17 @@ class NotFoundErr extends Error3<{filepath: string}, void> {
 
 ### JSON serialization
 
-```text
-() -> Object
-```
-
-Calling JSON.stringify on Error3 instance receive an object with properties
+Calling [`Error3#toJSON()`](#error3tojson) on Error3 instance returns an object with properties
 `code`, `message`, `details`, and `errors`. Example output:
 
 ```json
 {
-    "code": "fs_not_found",
-    "message": "File 'index.js' not found",
-    "details": {
-        "filepath": "index.js"
-    },
-    "errors": []
+  "code": "fs_not_found",
+  "message": "File 'index.js' not found",
+  "details": {
+    "filepath": "index.js"
+  },
+  "errors": []
 }
 ```
 
@@ -152,7 +148,7 @@ abstract class Error3<Details, Errors> extends Error implements IError3 {
 
 ```javascript
 const error = new UserMissed(
-    {userId: 1}, [new Error('Collection removed')]
+  {userId: 1}, [new Error('Collection removed')]
 );
 
 error.code // -> user_missed
