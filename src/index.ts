@@ -1,13 +1,11 @@
 export default abstract class Error3<Details, Errors> extends Error {
-  public code: string
+  public code: string|number = 0
+  public name: string = this.constructor.name
   public details: object
   public errors: Error|Error[]
 
   constructor(details: Details, errors: Errors) {
     super('')
-
-    this.code = toUnderscore(this.constructor.name)
-    this.name = this.constructor.name
 
     if (details) {
       if (isObject(details) && isPlainObject(details)) {
@@ -48,7 +46,8 @@ export default abstract class Error3<Details, Errors> extends Error {
   }
 
   toString() {
-    return this.name + ': ' + this.message
+    const {name, code, message} = this
+    return `${name}: [#${code}] ${message}`
   }
 }
 
@@ -66,9 +65,4 @@ function isErrorObject(value:any): value is Error {
 
 function isPlainObject(value:any):value is Object {
   return value.constructor.toString() === Object.toString()
-}
-
-function toUnderscore(str: string): string {
-  return str[0].toLowerCase() + str.slice(1)
-  .replace(/[A-Z]+/, (v) => '_' + v.toLowerCase())
 }

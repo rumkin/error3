@@ -1,13 +1,15 @@
 import * as should from 'should'
-import Error3  from '../src/'
+import Error3  from '../src'
 
 type MyErrorDetails = {
   value: string
 }
 
 class MyError extends Error3<MyErrorDetails, Error[]|void> {
+  code = 'error_code'
+
   format({value}) {
-    return `is: ${value}`
+    return `cause=${value}`
   }
 }
 
@@ -30,8 +32,8 @@ describe('Error3', function() {
       should(error).hasOwnProperty('message')
       .which.is.a.String()
 
-      should(error.message).be.equal('is: error')
-      should(error.toString()).be.equal('MyError: is: error')
+      should(error.message).be.equal('cause=error')
+      should(error.toString()).be.equal('MyError: [#error_code] cause=error')
     })
 
     it('Should transform constructor name to code', () => {
@@ -39,7 +41,7 @@ describe('Error3', function() {
 
       should(error).hasOwnProperty('code')
 
-      should(error.code).be.equal('my_error')
+      should(error.code).be.equal('error_code')
     })
 
     it('Should create empty .errors property', () => {
@@ -58,9 +60,9 @@ describe('Error3', function() {
       should(error).hasOwnProperty('details')
       should(error).hasOwnProperty('errors')
 
-      should(error.code).be.equal('my_error')
-      should(error.message).be.equal('is: all')
-      should(error.toString()).be.equal('MyError: is: all')
+      should(error.code).be.equal('error_code')
+      should(error.message).be.equal('cause=all')
+      should(error.toString()).be.equal('MyError: [#error_code] cause=all')
       should(error.details).be.deepEqual({value: 'all'})
 
       should(error.errors).has.lengthOf(1)
