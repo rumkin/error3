@@ -1,11 +1,19 @@
-node_modules
-npm-debug.log
-coverage
+build/
+coverage/
+dist/
+local/
+logs/
+node_modules/
+pids/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Runtime files
+*.lock
+*.log
 *.pid
-
-
-**/.DS_Store
-
-tmp
-local
-build
+*.pid.lock
