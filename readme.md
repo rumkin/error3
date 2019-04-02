@@ -205,12 +205,13 @@ Alias of [`Error3#valueOf`](#error3valueof). It's created to be used by `JSON.st
 () -> PlainError
 ```
 
-ValueOf returns plain error object containing properties: `code`, `message`, `details` and `errors`.
+This method realizes [Object#valueOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf) interface and returns plain error object containing properties:
+`code`, `message`, `details` and `errors`.
 
 ### `PlainError{}`
 
 ```
-PlainError = {
+{
   code: string|number,
   message: string,
   details: object,
