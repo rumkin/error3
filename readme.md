@@ -66,7 +66,11 @@ class NotFoundErr extends Error3 {
   }
 }
 // ... other errors
+```
 
+This what it gives to us:
+
+```javascript
 // Throwing
 const error = new NotFoundErr({filepath: '/index.js'});
 error.toString() // -> "NotFoundErr: [#fs_not_found] File or directory "/index.js" not found"
