@@ -23,6 +23,7 @@
     "typescript": "^3.4.1"
   },
   "directories": {
+    "examples": "examples",
     "test": "test"
   },
   "repository": {
@@ -34,12 +35,11 @@
     "errors",
     "error handling",
     "throw",
-    "catch",
-    "troubleshooting"
+    "catch"
   ],
   "author": "rumkin",
   "bugs": {
     "url": "https://github.com/rumkin/error3/issues"
   },
-  "homepage": "https://github.com/rumkin/error3#readme"
+  "homepage": "https://github.com/rumkin/error3"
 }
