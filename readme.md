@@ -202,15 +202,21 @@ Alias of [`Error3#valueOf`](#error3valueof). It's created to be used by `JSON.st
 
 ### `Error3#valueOf()`
 ```
-() -> {
+() -> PlainError
+```
+
+ValueOf returns plain error object containing properties: `code`, `message`, `details` and `errors`.
+
+### `PlainError{}`
+
+```
+PlainError = {
   code: string|number,
   message: string,
   details: object,
-  errors: Error[],
+  errors: PlainError[],
 }
 ```
-
-ValueOf returns plain object containing properties: `code`, `message`, `details` and `errors`.
 
 ## License
 

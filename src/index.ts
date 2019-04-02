@@ -2,7 +2,7 @@ export default abstract class Error3<Details, Errors> extends Error {
   public code: string|number = 0
   public name: string = this.constructor.name
   public details: object
-  public errors: Error|Error[]
+  public errors: Error[]
 
   constructor(details: Details, errors: Errors) {
     super('')
@@ -41,7 +41,7 @@ export default abstract class Error3<Details, Errors> extends Error {
       code: this.code,
       message: this.message,
       details: this.details,
-      errors: this.errors,
+      errors: this.errors.map((error) => error.valueOf()),
     }
   }
 
