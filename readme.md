@@ -11,26 +11,33 @@ and easy to use with typed systems. It supports error codes, message formatters
 and nested errors. It's recomended to use instead of native Error to make
 more robust APIs.
 
-* Plays really good with TypeScript.
+* Plays really good with TypeScript and JSON loggers.
 * Easy serialization/desearilization.
-* Better logging and search.
 * Tiny (less then a 1 KiB).
 
 > It has 3 in the name in the same reason as [eventemitter3](https://npmjs.com/package/eventemitter3) npm package. Because there already was error2.
 
 ## Install
 
-Install via NPM:
+* In node.js:
 
-```bash
-npm i error3
-```
+  ```bash
+  npm i error3
+  ```
+* In browser:
+  ```html
+  <script src="https://unpkg.com/error3@2/dist/error3.min.js"></script>
+  <!-- ES module -->
+  <script src="https://unpkg.com/error3@2/dist/esm/error3.min.js"></script>
+  ```
+  > ⚠️ Remember about security! Add [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) checksum
+  > from [checksum.txt](https://unpkg.com/error3@2/dist/checksum.txt).
 
 ## Usage
 
-Error3 suggests that you will create some base error class for your application.
-And that will create an exhausive list of unique Error classes. But in this
-example we will create just single error provided information about missing file.
+Error3 suggests that you will create some base error class for your application
+or library and then use it as a parent for all your errors. Watch example in
+[examples](examples) folder. Ths is an example of interface realization:
 
 ### JS
 ```javascript
@@ -79,11 +86,12 @@ converts it from camelcase into underscore.
 (details:object = {}, errors:Error[] = []) -> Error3
 ```
 
-__abstract__. Error3 constructor has no required arguments. This is resposibility of
-ancestor class to implement proper interface into its constructor.
+__abstract__. Error3 constructor has only optional arguments. This is resposibility of
+ancestor class to implement proper interface into its constructor. And pass `details`
+object and `errors` list.
 
 `details` is using to describe error with objects. Thus it could be sent via network
-or stored in ELK without customized parsing with regexps.
+to frontend, db, or ELK without extra parsing with regexps.
 
 ```javascript
 const error = new NotFound({filepath: 'index.js'});
@@ -95,11 +103,11 @@ error.errors // -> []
 ```
 
 Error could contain other error (or errors) caused current error throwing.
-It could be single error instance or array of errors:
+It could be array of errors:
 
 ```javascript
 const error = new UserMissed(
-    {userId: 1}, new Error3('Collection removed')
+    {userId: 1}, [new Error3('Collection removed')]
 );
 
 error.code // -> user_missed
