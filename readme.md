@@ -26,7 +26,12 @@ more robust APIs.
 * Easy serialization and desearilization: good for network apps and JSON logging.
 * Tiny (less then 1 KiB).
 
-> It names error3 because error2 has already been taken.
+## Table of Contents
+
+* [Install](#install)
+* [Usage](#usage)
+* [Examples](#examples)
+* [API](#api)
 
 ## Install
 
@@ -54,7 +59,7 @@ or library and then use it as a parent for all your errors. Watch example in
 import Error3 from 'error3'
 
 class NotFoundErr extends Error3 {
-  code = 'not_found'
+  code = 'fs_not_found'
 
   format({filepath}) {
     return `File or directory "${filepath}" not found`
@@ -64,9 +69,9 @@ class NotFoundErr extends Error3 {
 
 // Throwing
 const error = new NotFoundErr({filepath: '/index.js'});
-error.toString() // -> "NotFoundErr: [#not_found] File or directory "/index.js" not found"
+error.toString() // -> "NotFoundErr: [#fs_not_found] File or directory "/index.js" not found"
 error.message // -> "File or directory "/index.js" not found"
-error.code // -> not_found
+error.code // -> fs_not_found
 error.details // -> {filepath: '/index.js'}
 ```
 
@@ -76,11 +81,31 @@ The same in TypeScript:
 import Error3 from 'error3'
 
 class NotFoundErr extends Error3<{filepath: string}, void> {
-  code = 'not_found'
+  code = 'fs_not_found'
 
   format({filepath}):string {
     return `File "${filepath}" not found`
   }
+}
+```
+
+### JSON serialization
+
+```text
+() -> Object
+```
+
+Calling JSON.stringify on Error3 instance receive an object with properties
+`code`, `message`, `details`, and `errors`. Example output:
+
+```json
+{
+    "code": "fs_not_found",
+    "message": "File 'index.js' not found",
+    "details": {
+        "filepath": "index.js"
+    },
+    "errors": []
 }
 ```
 
@@ -110,7 +135,7 @@ to frontend, db, or ELK without extra parsing with regexps.
 ```javascript
 const error = new NotFound({filepath: 'index.js'});
 
-error.code // -> not_found
+error.code // -> fs_not_found
 error.message // -> File or directory "./index.js" not found
 error.details // -> {filepath: 'index.js}
 error.errors // -> []
@@ -163,12 +188,9 @@ class PortInUse extends Error3{
 
 #### TS
 ```typescript
-type PortInUseDetails = {
-  port: number
-}
 
-class PortInUse extends Error3<PortInUseDetails, void> {
-  format({port}:PortInUseDetails):string {
+class PortInUse extends Error3<{port: string|number}, void> {
+  format({port}): string {
     return `Port ${port} is already in use`
   }
 }
@@ -176,22 +198,19 @@ class PortInUse extends Error3<PortInUseDetails, void> {
 
 ### `Error3#toJSON()`
 
-```text
-() -> Object
+Alias of [`Error3#valueOf`](#error3valueof). It's created to be used by `JSON.stringify`.
+
+### `Error3#valueOf()`
 ```
-
-Stringification into JSON use `code`, `message` and `details` properties. Example:
-
-```json
-{
-    "code": "file_not_found",
-    "message": "File or directory 'index.js' not found",
-    "details": {
-        "filepath": "index.js"
-    },
-    "errors": []
+() -> {
+  code: string|number,
+  message: string,
+  details: object,
+  errors: Error[],
 }
 ```
+
+ValueOf returns plain object containing properties: `code`, `message`, `details` and `errors`.
 
 ## License
 
