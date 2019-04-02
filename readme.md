@@ -114,6 +114,7 @@ Calling JSON.stringify on Error3 instance receive an object with properties
 
 * HTTP errors [JS](examples/http-errors.js) · [TS](examples/http-errors.js)
 * File System errors [JS](examples/fs-errors.js) · [TS](examples/fs-errors.js)
+* I18n error messages [JS](examples/intl.js) · [TS](examples/intl.js)
 
 ## API
 
