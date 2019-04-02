@@ -1,4 +1,4 @@
-![Error3 Logo](docs/cover.png)
+![Error3 Logo](docs/Cover.png)
 
 [![npm](https://img.shields.io/npm/v/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
 [![npm](https://img.shields.io/npm/dw/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
