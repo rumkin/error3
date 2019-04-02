@@ -152,7 +152,7 @@ abstract class Error3<Details, Errors> extends Error implements IError3 {
 
 ```javascript
 const error = new UserMissed(
-    {userId: 1}, [new Error3('Collection removed')]
+    {userId: 1}, [new Error('Collection removed')]
 );
 
 error.code // -> user_missed
