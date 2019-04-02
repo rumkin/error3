@@ -4,6 +4,13 @@ export interface IError3 extends Error {
   readonly errors: Error[]
 }
 
+type PlainError = {
+  code: string|number
+  message: string
+  details: object
+  errors: PlainError[]|object[]
+}
+
 export default abstract class Error3<Details, Errors> extends Error implements IError3 {
   public readonly code: string|number = 0
   public readonly name: string = this.constructor.name
@@ -42,7 +49,7 @@ export default abstract class Error3<Details, Errors> extends Error implements I
 
   abstract format(_details: Details, _errors: Errors): string
 
-  valueOf() {
+  valueOf(): PlainError {
     return {
       code: this.code,
       message: this.message,
@@ -51,12 +58,12 @@ export default abstract class Error3<Details, Errors> extends Error implements I
     }
   }
 
-  toString() {
+  toString(): string {
     const {name, code, message} = this
     return `${name}: [#${code}] ${message}`
   }
 
-  toJSON() {
+  toJSON(): PlainError {
     return this.valueOf()
   }
 }
