@@ -1,10 +1,19 @@
-![Error3 Logo](docs/Cover.png)
-
-[![npm](https://img.shields.io/npm/v/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
-[![npm](https://img.shields.io/npm/dw/error3.svg?style=flat-square)](https://npmjs.com/packages/error3)
-![](https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square)
-![](https://img.shields.io/badge/deps-0-blue.svg?style=flat-square)
-[![Travis](https://img.shields.io/travis/rumkin/error3.svg?style=flat-square)](https://travis-ci.org/rumkin/error3)
+<p align="center">
+  <img width="220" alt="Logo with caption: proper error object" src="docs/cover.png">
+</p>
+<p align="center">
+  <a href="https://npmjs.com/packages/error3">
+    <img alt="badge: npm version" src="https://img.shields.io/npm/v/error3.svg?style=flat-square" />
+  </a>
+  <a href="https://npmjs.com/packages/error3">
+    <img alt="badge: npm downloads" src="https://img.shields.io/npm/dw/error3.svg?style=flat-square" />
+  </a>
+  <img alt="badge: size 0.6 KiB" src="https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square" />
+  <img alt="badge: badge: deps 0" src="https://img.shields.io/badge/deps-0-blue.svg?style=flat-square" />
+  <a aria-label="build status" href="https://travis-ci.org/rumkin/error3">
+    <img alt="badge" src="https://img.shields.io/travis/rumkin/error3.svg?style=flat-square" />
+  </a>
+</p>
 
 Error3 is regular Error with extra power. It's designed to be extensible
 and easy to use with typed systems. It supports error codes, message formatters
