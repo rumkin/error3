@@ -1,6 +1,5 @@
 # TODOLIST
 
-### v2.1
+### Future
 
 * [ ] Sourcemaps generation issue
-* [ ] Namespaces

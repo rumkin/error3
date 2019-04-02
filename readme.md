@@ -11,11 +11,12 @@ and easy to use with typed systems. It supports error codes, message formatters
 and nested errors. It's recomended to use instead of native Error to make
 more robust APIs.
 
-* Plays really good with TypeScript and JSON loggers.
-* Easy serialization/desearilization.
-* Tiny (less then a 1 KiB).
+* Modern: designed for TypeScript and ES2019
+* IDE friendly: no runtime execution  autosuggetions out of the box.
+* Easy serialization and desearilization: good for network apps and JSON logging.
+* Tiny (less then 1 KiB).
 
-> It has 3 in the name in the same reason as [eventemitter3](https://npmjs.com/package/eventemitter3) npm package. Because there already was error2.
+> It names error3 because error2 has already been taken.
 
 ## Install
 
@@ -26,24 +27,25 @@ more robust APIs.
   ```
 * In browser:
   ```html
-  <script src="https://unpkg.com/error3@2/dist/error3.min.js"></script>
+  <script src="https://unpkg.com/error3@3/dist/error3.min.js"></script>
   <!-- ES module -->
-  <script src="https://unpkg.com/error3@2/dist/esm/error3.min.js"></script>
+  <script src="https://unpkg.com/error3@3/dist/esm/error3.min.js"></script>
   ```
   > ⚠️ Remember about security! Add [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) checksum
-  > from [checksum.txt](https://unpkg.com/error3@2/dist/checksum.txt).
+  > from [checksum.txt](https://unpkg.com/error3@3/dist/checksum.txt).
 
 ## Usage
 
-Error3 suggests that you will create some base error class for your application
+Error3 suppose that you will create some base error class for your application
 or library and then use it as a parent for all your errors. Watch example in
 [examples](examples) folder. Ths is an example of interface realization:
 
-### JS
 ```javascript
 import Error3 from 'error3'
 
 class NotFoundErr extends Error3 {
+  code = 'not_found'
+
   format({filepath}) {
     return `File or directory "${filepath}" not found`
   }
@@ -51,29 +53,31 @@ class NotFoundErr extends Error3 {
 // ... other errors
 
 // Throwing
-throw new NotFoundErr({filepath: '/some-file'});
-// > "NotFoundErr: File or directory "/some-file" not found"
+const error = new NotFoundErr({filepath: '/index.js'});
+error.toString() // -> "NotFoundErr: [#not_found] File or directory "/index.js" not found"
+error.message // -> "File or directory "/index.js" not found"
+error.code // -> not_found
+error.details // -> {filepath: '/index.js'}
 ```
 
-### TypeScript
+The same in TypeScript:
 
 ```typescript
 import Error3 from 'error3'
 
-type NotFoundErrDetails = {
-  filepath: string
-}
+class NotFoundErr extends Error3<{filepath: string}, void> {
+  code = 'not_found'
 
-class NotFoundErr extends Error3<NotFoundErrDetails, void> {
   format({filepath}):string {
-    return `File or directory "${filepath}" not found`
+    return `File "${filepath}" not found`
   }
 }
-
-// Throwing
-throw new NotFoundErr({filepath: '/some-file'});
-// > "NotFoundErr: File or directory "/some-file" not found"
 ```
+
+## Examples
+
+* HTTP errors ([JS](examples/http-errors.js), [TS](examples/http-errors.js))
+* File System errors ([JS](examples/fs-errors.js), [TS](examples/fs-errors.js))
 
 ## API
 
@@ -96,7 +100,7 @@ to frontend, db, or ELK without extra parsing with regexps.
 ```javascript
 const error = new NotFound({filepath: 'index.js'});
 
-error.code // -> file_not_found
+error.code // -> not_found
 error.message // -> File or directory "./index.js" not found
 error.details // -> {filepath: 'index.js}
 error.errors // -> []
@@ -114,6 +118,20 @@ error.code // -> user_missed
 error.message // -> User #1 not loaded
 error.details // -> {userId: 1}
 error.errors // -> [Error('Collection removed')]
+```
+
+### `Error#code`
+```
+string|number
+```
+
+Error code should be a string or a number. It could be defined using class fields
+syntax:
+
+```javascript
+class HttpNotFound extends HttpError {
+  code = 404
+}
 ```
 
 ### `Error3#format()`
@@ -135,11 +153,11 @@ class PortInUse extends Error3{
 
 #### TS
 ```typescript
-type ProtInUseDetails = {
+type PortInUseDetails = {
   port: number
 }
 
-class PortInUse extends Error3<ProtInUseDetails, void> {
+class PortInUse extends Error3<PortInUseDetails, void> {
   format({port}:PortInUseDetails):string {
     return `Port ${port} is already in use`
   }
