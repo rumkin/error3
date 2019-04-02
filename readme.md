@@ -15,16 +15,14 @@
   </a>
 </p>
 
-Error3 is regular Error with extra power. It's designed to be extensible
-and easy to use with typed systems. It supports error codes, message formatters
-and nested errors. It's recomended to use instead of native Error to make
-more robust APIs.
+Error3 is an Error with extra powers. It has been designed to be extensible and easy to use.
+Though it has codes, message formatters and nested errors.
 
-* Modern: designed for TypeScript and ES2019
-* IDE friendly: no runtime execution  autosuggetions out of the box.
+* Modern: designed for TypeScript and ES2019.
+* IDE friendly: it's using classes and class fields to be inspectable for auto suggetion tools.
 * i18n ready: formatter could produce messages using i18n API.
-* Easy serialization and desearilization: good for network apps and JSON logging.
-* Tiny (less then 1 KiB).
+* Easy serialization and deserealization: good for network apps and JSON logging.
+* Frontend caring: it's tiny (less then 1 KiB).
 
 ## Table of Contents
 
