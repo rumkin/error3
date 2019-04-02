@@ -22,6 +22,7 @@ more robust APIs.
 
 * Modern: designed for TypeScript and ES2019
 * IDE friendly: no runtime execution  autosuggetions out of the box.
+* i18n ready: formatter could produce messages using i18n API.
 * Easy serialization and desearilization: good for network apps and JSON logging.
 * Tiny (less then 1 KiB).
 
