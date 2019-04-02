@@ -49,6 +49,10 @@ export default abstract class Error3<Details, Errors> extends Error {
     const {name, code, message} = this
     return `${name}: [#${code}] ${message}`
   }
+
+  toJSON() {
+    return this.valueOf()
+  }
 }
 
 function isErrors(value: any): value is Error[] {

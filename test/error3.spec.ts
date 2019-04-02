@@ -70,4 +70,13 @@ describe('Error3', function() {
       should(error.errors[0].message).be.equal('test')
     })
   })
+
+  describe('converts to JSON', () => {
+    it('Should converts to JSON string', () => {
+      const err = new MyError({value: 'all'})
+
+      const str = JSON.stringify(err)
+      should(str).be.equal('{"code":"error_code","message":"cause=all","details":{"value":"all"},"errors":[]}')
+    })
+  })
 })
