@@ -8,7 +8,7 @@
   <a href="https://npmjs.com/packages/error3">
     <img alt="badge: npm downloads" src="https://img.shields.io/npm/dw/error3.svg?style=flat-square" />
   </a>
-  <img alt="badge: size 0.6 KiB" src="https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square" />
+  <img alt="badge: size 0.9 KiB" src="https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square" />
   <img alt="badge: badge: deps 0" src="https://img.shields.io/badge/deps-0-blue.svg?style=flat-square" />
   <a aria-label="build status" href="https://travis-ci.org/rumkin/error3">
     <img alt="badge" src="https://img.shields.io/travis/rumkin/error3.svg?style=flat-square" />
