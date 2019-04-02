@@ -1,5 +1,6 @@
 import Error3 from 'error3'
 
+// Create error family
 export abstract class FsError extends Error3 {}
 
 type CommonDetails = {

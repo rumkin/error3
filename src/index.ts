@@ -1,5 +1,3 @@
-// export = Error3
-
 export default abstract class Error3<Details, Errors> extends Error {
   public code: string
   public details: object
@@ -16,7 +14,7 @@ export default abstract class Error3<Details, Errors> extends Error {
         this.details = {...details as Object}
       }
       else {
-        throw new Error('Details should be an Object or undefined')
+        throw new Error('Details should be a plain Object instance or undefined')
       }
     }
     else {

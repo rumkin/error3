@@ -16,7 +16,7 @@ more robust APIs.
 * Better logging and search.
 * Tiny (less then a 1 KiB).
 
-> It has 3 in the name in the same reason as [eventemitter3](https://npmjs/package/eventemitter3) npm package.
+> It has 3 in the name in the same reason as [eventemitter3](https://npmjs.com/package/eventemitter3) npm package. Because there already was error2.
 
 ## Install
 
@@ -36,7 +36,7 @@ example we will create just single error provided information about missing file
 ```javascript
 import Error3 from 'error3'
 
-class NotFound extends Error3 {
+class NotFoundErr extends Error3 {
   format({filepath}) {
     return `File or directory "${filepath}" not found`
   }
@@ -44,8 +44,8 @@ class NotFound extends Error3 {
 // ... other errors
 
 // Throwing
-throw new NotFound({filepath: '/some-file'});
-// > "NotFound: File or directory "/some-file" not found"
+throw new NotFoundErr({filepath: '/some-file'});
+// > "NotFoundErr: File or directory "/some-file" not found"
 ```
 
 ### TypeScript
@@ -53,19 +53,19 @@ throw new NotFound({filepath: '/some-file'});
 ```typescript
 import Error3 from 'error3'
 
-type NotFoundDetails = {
+type NotFoundErrDetails = {
   filepath: string
 }
 
-class NotFound extends Error3<NotFoundDetails, void> {
-  format({filepath}) {
+class NotFoundErr extends Error3<NotFoundErrDetails, void> {
+  format({filepath}):string {
     return `File or directory "${filepath}" not found`
   }
 }
 
 // Throwing
-throw new NotFound({filepath: '/some-file'});
-// > "NotFound: File or directory "/some-file" not found"
+throw new NotFoundErr({filepath: '/some-file'});
+// > "NotFoundErr: File or directory "/some-file" not found"
 ```
 
 ## API

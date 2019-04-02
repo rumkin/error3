@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "./build/cjs",
+      "experimentalDecorators": false,
+      "lib": [
+          "es2017"
+      ]
+  },
+  "include": [
+      "src/**/*", "test/**/*"
+  ]
+}

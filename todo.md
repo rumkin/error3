@@ -1,4 +1,5 @@
 # TODO
 
-* [ ] Create babel distribution and test in browsers.
-* [ ] Create minified version.
+### v2.1
+
+* [ ] Namespaces
