@@ -1,5 +1,18 @@
 # CHANGELOG
 
+### 3.0.0
+
+* Removed code creation from constructor name.
+* Add class field `Error3#code` as part of error interface:
+  ```javascript
+  class MyError extends Error3 {
+    code = 'my_error'
+    format() {
+      return 'Ooops'
+    }
+  }
+  ```
+
 ### 2.0.0
 
 * Error3 rewriten to TypeScript.
