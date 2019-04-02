@@ -20,9 +20,9 @@ Though it has codes, message formatters and nested errors.
 
 * Modern: designed for TypeScript and ES2019.
 * IDE friendly: it's using classes and class fields to be inspectable for auto suggetion tools.
-* i18n ready: formatter could produce messages using i18n API.
+* i18n ready: formatter could produce localized messages with help of [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl).
 * Easy serialization and deserealization: good for network apps and JSON logging.
-* Frontend caring: it's tiny (less then 1 KiB).
+* Frontend caring: gzipped version is less then 1 KiB.
 
 ## Table of Contents
 
