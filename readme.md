@@ -65,7 +65,6 @@ class NotFoundErr extends Error3 {
     return `File or directory "${filepath}" not found`
   }
 }
-// ... other errors
 ```
 
 This what it gives to us:
@@ -79,7 +78,7 @@ error.code // -> fs_not_found
 error.details // -> {filepath: '/index.js'}
 ```
 
-The same in TypeScript:
+The same error implementation in TypeScript:
 
 ```typescript
 import Error3 from 'error3'
