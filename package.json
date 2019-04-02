@@ -3,7 +3,7 @@
   "description": "Error3 is proper JS error implementation. It supports error codes, message formatting (e.g. i18n) and nested errors.",
   "version": "3.1.0",
   "main": "dist/commonjs/error3.js",
-  "types": "dist/typings",
+  "types": "dist/types",
   "scripts": {
     "build": "npm run build:prod",
     "build:prod": "./bin/build.sh",
