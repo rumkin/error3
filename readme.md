@@ -62,7 +62,7 @@ class NotFoundErr extends Error3 {
   code = 'fs_not_found'
 
   format({filepath}) {
-    return `File or directory "${filepath}" not found`
+    return `File "${filepath}" not found`
   }
 }
 ```
@@ -70,10 +70,9 @@ class NotFoundErr extends Error3 {
 This what it gives to us:
 
 ```javascript
-// Throwing
 const error = new NotFoundErr({filepath: '/index.js'});
-error.toString() // -> "NotFoundErr: [#fs_not_found] File or directory "/index.js" not found"
-error.message // -> "File or directory "/index.js" not found"
+error.toString() // -> "NotFoundErr: [#fs_not_found] File "/index.js" not found"
+error.message // -> "File "/index.js" not found"
 error.code // -> fs_not_found
 error.details // -> {filepath: '/index.js'}
 ```
@@ -114,8 +113,8 @@ Calling JSON.stringify on Error3 instance receive an object with properties
 
 ## Examples
 
-* HTTP errors ([JS](examples/http-errors.js), [TS](examples/http-errors.js))
-* File System errors ([JS](examples/fs-errors.js), [TS](examples/fs-errors.js))
+* HTTP errors [JS](examples/http-errors.js) · [TS](examples/http-errors.js)
+* File System errors [JS](examples/fs-errors.js) · [TS](examples/fs-errors.js)
 
 ## API
 
@@ -135,17 +134,15 @@ object and `errors` list.
 `details` is using to describe error with objects. Thus it could be sent via network
 to frontend, db, or ELK without extra parsing with regexps.
 
-```javascript
-const error = new NotFound({filepath: 'index.js'});
+#### TS Interface
 
-error.code // -> fs_not_found
-error.message // -> File or directory "./index.js" not found
-error.details // -> {filepath: 'index.js}
-error.errors // -> []
+```typescript
+abstract class Error3<Details, Errors> {
+  constructor(details:Details, errors: Errors) {}
+}
 ```
 
-Error could contain other error (or errors) caused current error throwing.
-It could be array of errors:
+#### Example
 
 ```javascript
 const error = new UserMissed(
