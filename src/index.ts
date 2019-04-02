@@ -1,8 +1,14 @@
-export default abstract class Error3<Details, Errors> extends Error {
-  public code: string|number = 0
-  public name: string = this.constructor.name
-  public details: object
-  public errors: Error[]
+export interface IError3 extends Error {
+  readonly code: string|number
+  readonly details: object
+  readonly errors: Error[]
+}
+
+export default abstract class Error3<Details, Errors> extends Error implements IError3 {
+  public readonly code: string|number = 0
+  public readonly name: string = this.constructor.name
+  public readonly details: object
+  public readonly errors: Error[]
 
   constructor(details: Details, errors: Errors) {
     super('')

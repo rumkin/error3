@@ -137,8 +137,14 @@ to frontend, db, or ELK without extra parsing with regexps.
 #### TS Interface
 
 ```typescript
-abstract class Error3<Details, Errors> {
-  constructor(details:Details, errors: Errors) {}
+abstract class Error3<Details, Errors> extends Error implements IError3 {
+  public readonly code: string|number
+  public readonly name: string
+  public readonly details: object
+  public readonly errors: Error[]
+
+  constructor(details: Details, errors: Errors) {}
+  abstract format(detials: Details, errors: Errors): string
 }
 ```
 
