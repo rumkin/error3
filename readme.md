@@ -2,10 +2,10 @@
   <img width="220" alt="Logo with caption: proper error object" src="docs/cover.png">
 </p>
 <p align="center">
-  <a href="https://npmjs.com/packages/error3">
+  <a href="https://npmjs.com/package/error3">
     <img alt="badge: npm version" src="https://img.shields.io/npm/v/error3.svg?style=flat-square" />
   </a>
-  <a href="https://npmjs.com/packages/error3">
+  <a href="https://npmjs.com/package/error3">
     <img alt="badge: npm downloads" src="https://img.shields.io/npm/dw/error3.svg?style=flat-square" />
   </a>
   <img alt="badge: size 0.9 KiB" src="https://img.shields.io/badge/size-0.9%20KiB-blue.svg?style=flat-square" />
@@ -117,7 +117,7 @@ Calling [`Error3#toJSON()`](#error3tojson) on Error3 instance returns an object 
 ### `Error3()`
 
 ```text
-(details: object = {}, errors: Error[] = []) -> Error3
+(details: object={}, errors: Error[]=[]) -> Error3
 ```
 
 __abstract__. Both of Error3 constructor arguments are optional. The resposibility of
