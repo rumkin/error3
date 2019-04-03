@@ -78,5 +78,14 @@ describe('Error3', function() {
       const str = JSON.stringify(err)
       should(str).be.equal('{"code":"error_code","message":"cause=all","details":{"value":"all"},"errors":[]}')
     })
+
+    it('Should converts to JSON string with nested object', () => {
+      const err = new MyError({value: 'all'}, [
+        new MyError({value: 'some'})
+      ])
+
+      const str = JSON.stringify(err)
+      should(str).be.equal('{"code":"error_code","message":"cause=all","details":{"value":"all"},"errors":[{"code":"error_code","message":"cause=some","details":{"value":"some"},"errors":[]}]}')
+    })
   })
 })
