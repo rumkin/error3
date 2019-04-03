@@ -19,10 +19,10 @@ Error3 is an Error with extra powers. It has been designed to be extensible and 
 Though it has codes, message formatters and nested errors.
 
 * Modern: designed for TypeScript and ES2019.
-* IDE friendly: it's using classes and class fields to be inspectable for auto suggetion tools.
+* IDE friendly: it's using classes and class fields to be inspectable for autosuggetion tools.
 * i18n ready: formatter could produce localized messages with help of [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl).
 * Easy serialization and deserealization: good for network apps and JSON logging.
-* Frontend caring: gzipped version is less then 1 KiB.
+* Frontend caring: 0 dependencies, gzipped version is less then 1 KiB.
 
 ## Table of Contents
 
@@ -34,7 +34,6 @@ Though it has codes, message formatters and nested errors.
 ## Install
 
 * In node.js:
-
   ```bash
   npm i error3
   ```
@@ -52,7 +51,7 @@ Though it has codes, message formatters and nested errors.
 
 Error3 suppose that you will create some base error class for your application
 or library and then use it as a parent for all your errors. Watch example in
-[examples](examples) folder. Ths is an example of interface realization:
+[examples](examples) folder. Here it is interface realization:
 
 ```javascript
 import Error3 from 'error3'
@@ -66,17 +65,17 @@ class NotFoundErr extends Error3 {
 }
 ```
 
-This what it gives to us:
+This is what it gives to us:
 
 ```javascript
-const error = new NotFoundErr({filepath: '/index.js'});
-error.toString() // -> "NotFoundErr: [#fs_not_found] File "/index.js" not found"
-error.message // -> "File "/index.js" not found"
+const error = new NotFoundErr({filepath: './index.js'});
+error.toString() // -> "NotFoundErr: [#fs_not_found] File "./index.js" not found"
+error.message // -> "File "./index.js" not found"
 error.code // -> fs_not_found
-error.details // -> {filepath: '/index.js'}
+error.details // -> {filepath: './index.js'}
 ```
 
-The same error implementation in TypeScript:
+The same error TypeScript implementation:
 
 ```typescript
 import Error3 from 'error3'
@@ -84,7 +83,7 @@ import Error3 from 'error3'
 class NotFoundErr extends Error3<{filepath: string}, void> {
   code = 'fs_not_found'
 
-  format({filepath}):string {
+  format({filepath}): string {
     return `File "${filepath}" not found`
   }
 }
@@ -98,9 +97,9 @@ Calling [`Error3#toJSON()`](#error3tojson) on Error3 instance returns an object 
 ```json
 {
   "code": "fs_not_found",
-  "message": "File 'index.js' not found",
+  "message": "File \"./index.js\" not found",
   "details": {
-    "filepath": "index.js"
+    "filepath": "./index.js"
   },
   "errors": []
 }
@@ -109,13 +108,10 @@ Calling [`Error3#toJSON()`](#error3tojson) on Error3 instance returns an object 
 ## Examples
 
 * HTTP errors [JS](examples/http-errors.js) · [TS](examples/http-errors.js)
-* File System errors [JS](examples/fs-errors.js) · [TS](examples/fs-errors.js)
-* I18n error messages [JS](examples/intl.js) · [TS](examples/intl.js)
+* FileSystem errors [JS](examples/fs-errors.js) · [TS](examples/fs-errors.js)
+* Localized I18n error messages [JS](examples/intl.js) · [TS](examples/intl.js)
 
 ## API
-
-How it works. Error3 uses constructor name as error code and
-converts it from camelcase into underscore.
 
 ### `Error3()`
 
@@ -123,12 +119,13 @@ converts it from camelcase into underscore.
 (details:object = {}, errors:Error[] = []) -> Error3
 ```
 
-__abstract__. Error3 constructor has only optional arguments. This is resposibility of
-ancestor class to implement proper interface into its constructor. And pass `details`
-object and `errors` list.
+__abstract__. Both of Error3 constructor arguments are optional. The resposibility of
+ancestor class is to implement proper interface and pass `details` object
+and `errors` list into `super()` call. 
 
-`details` is using to describe error with objects. Thus it could be sent via network
-to frontend, db, or ELK without extra parsing with regexps.
+`details` is using to describe error with JS primitives. Though it could be sent
+via network to frontend, db, or ELK without extra parsing as it should be done
+with regular Error instance.
 
 #### TS Interface
 
@@ -173,15 +170,15 @@ class HttpNotFound extends HttpError {
 
 ### `Error3#format()`
 ```
-(details:object, errors: Error[]) -> string
+(details: object, errors: Error[]) -> string
 ```
 
 __abstract__. Creates formatted message string from details and other errors.
-This method is calling from Error3 constrcutor automatically.
+This method is calling from Error3 constrcutor to define `message` property.
 
 #### JS
 ```javascript
-class PortInUse extends Error3{
+class PortInUse extends Error3 {
   format({port}) {
     return `Port ${port} is already in use`
   }
@@ -190,7 +187,6 @@ class PortInUse extends Error3{
 
 #### TS
 ```typescript
-
 class PortInUse extends Error3<{port: string|number}, void> {
   format({port}): string {
     return `Port ${port} is already in use`
@@ -200,18 +196,17 @@ class PortInUse extends Error3<{port: string|number}, void> {
 
 ### `Error3#toJSON()`
 
-Alias of [`Error3#valueOf`](#error3valueof). It's created to be used by `JSON.stringify`.
+Wrapper of [`Error3#valueOf`](#error3valueof). It's created to be used by `JSON.stringify()`.
 
 ### `Error3#valueOf()`
 ```
 () -> PlainError
 ```
 
-This method realizes [Object#valueOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf) interface and returns plain error object containing properties:
+This method realizes [`Object#valueOf()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf) behavior and returns plain error object containing properties:
 `code`, `message`, `details` and `errors`.
 
 ### `PlainError{}`
-
 ```
 {
   code: string|number,
@@ -220,6 +215,8 @@ This method realizes [Object#valueOf()](https://developer.mozilla.org/en-US/docs
   errors: PlainError[],
 }
 ```
+
+It is a result of `Error3#valueOf()` call.
 
 ## License
 
