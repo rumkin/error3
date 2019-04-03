@@ -18,7 +18,7 @@ export default abstract class Error3<Details, Errors> extends Error implements I
   public readonly errors: Error[]
 
   constructor(details: Details, errors: Errors) {
-    super('')
+    super()
 
     if (details) {
       if (isObject(details) && isPlainObject(details)) {

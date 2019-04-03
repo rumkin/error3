@@ -16,3 +16,11 @@ npx babel-minify --sourceType module dist/esm/error3.js -o dist/esm/error3.min.j
 npx tsc --target es5 --module esnext && \
 npx rollup build/index.js --format=umd --name=Error3 -o dist/error3.js && \
 npx babel-minify dist/error3.js -o dist/error3.min.js \
+
+# Rewrite types
+TYPES=dist/types/index.d.ts
+sed -i.bak 's/export default /declare /g' $TYPES
+sed -i.bak 's/export {};//g' $TYPES
+sed -i.bak 's/export //g' $TYPES
+echo 'export = Error3;' >> $TYPES
+rm "$TYPES.bak"
