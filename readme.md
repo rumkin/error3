@@ -59,7 +59,7 @@ import Error3 from 'error3'
 class NotFoundErr extends Error3 {
   code = 'fs_not_found'
 
-  format({filepath}) {
+  format({ filepath }) {
     return `File "${filepath}" not found`
   }
 }
@@ -68,7 +68,7 @@ class NotFoundErr extends Error3 {
 This is what it gives to us:
 
 ```javascript
-const error = new NotFoundErr({filepath: './index.js'});
+const error = new NotFoundErr({ filepath: './index.js' });
 
 error.toString() // -> "NotFoundErr: [#fs_not_found] File "./index.js" not found"
 error.message // -> "File "./index.js" not found"
@@ -81,10 +81,10 @@ The same error TypeScript implementation:
 ```typescript
 import Error3 from 'error3'
 
-class NotFoundErr extends Error3<{filepath: string}, void> {
+class NotFoundErr extends Error3<{ filepath: string }, void> {
   code = 'fs_not_found'
 
-  format({filepath}): string {
+  format({ filepath }): string {
     return `File "${filepath}" not found`
   }
 }
@@ -110,14 +110,14 @@ Calling [`Error3#toJSON()`](#error3tojson) on Error3 instance returns an object 
 
 * HTTP errors [JS](examples/http-errors.js) · [TS](examples/http-errors.js)
 * FileSystem errors [JS](examples/fs-errors.js) · [TS](examples/fs-errors.js)
-* Localized I18n error messages [JS](examples/intl.js) · [TS](examples/intl.js)
+* Localized i18n error messages [JS](examples/intl.js) · [TS](examples/intl.js)
 
 ## API
 
 ### `Error3()`
 
 ```text
-(details:object = {}, errors:Error[] = []) -> Error3
+(details: object = {}, errors: Error[] = []) -> Error3
 ```
 
 __abstract__. Both of Error3 constructor arguments are optional. The resposibility of
@@ -180,7 +180,7 @@ This method is calling from Error3 constrcutor to define `message` property.
 #### JS
 ```javascript
 class PortInUse extends Error3 {
-  format({port}) {
+  format({ port }) {
     return `Port ${port} is already in use`
   }
 }
@@ -188,8 +188,8 @@ class PortInUse extends Error3 {
 
 #### TS
 ```typescript
-class PortInUse extends Error3<{port: string|number}, void> {
-  format({port}): string {
+class PortInUse extends Error3<{ port: string|number }, void> {
+  format({ port }): string {
     return `Port ${port} is already in use`
   }
 }
