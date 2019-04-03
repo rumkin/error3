@@ -69,6 +69,7 @@ This is what it gives to us:
 
 ```javascript
 const error = new NotFoundErr({filepath: './index.js'});
+
 error.toString() // -> "NotFoundErr: [#fs_not_found] File "./index.js" not found"
 error.message // -> "File "./index.js" not found"
 error.code // -> fs_not_found
