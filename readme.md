@@ -24,6 +24,16 @@ Though it has codes, message formatters and nested errors.
 * Easy serialization and deserealization: good for network apps and JSON logging.
 * Frontend caring: 0 dependencies, gzipped version is less then 1 KiB.
 
+## Error3 vs Error
+
+1. It's easy to compare error codes using strict equality operator. What makes error handling robust.
+2. Codes could be used as part of URL. In documentation for example.
+3. Details are stored as primitives though they could be used to produce custom output, e.g. highlighting.
+4. Error message could be localized using Intl.
+5. Error message could be modified for environment purposes.
+6. Shorten error invocation code.
+7. It's network friendly. Error could be easy restored and represented on the client side using from code and details.
+
 ## Table of Contents
 
 * [Install](#install)
