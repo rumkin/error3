@@ -1,20 +1,26 @@
+type PlainObject = {
+  constructor: ObjectConstructor,
+}
+
+type Data = Record<string|number,unknown>
+
 export interface IError3 extends Error {
   readonly code: string|number
-  readonly details: object
+  readonly details: Data,
   readonly errors: Error[]
 }
 
 type PlainError = {
   code: string|number
   message: string
-  details: object
-  errors: PlainError[]|object[]
+  details: Data
+  errors: PlainError[]
 }
 
 export default abstract class Error3<Details, Errors> extends Error implements IError3 {
   public readonly code: string|number = 0
   public readonly name: string = this.constructor.name
-  public readonly details: object
+  public readonly details: Data
   public readonly errors: Error[]
 
   constructor(details: Details, errors: Errors) {
@@ -22,7 +28,7 @@ export default abstract class Error3<Details, Errors> extends Error implements I
 
     if (details) {
       if (isObject(details) && isPlainObject(details)) {
-        this.details = {...details as Object}
+        this.details = {...details as Data}
       }
       else {
         throw new Error('Details should be a plain Object instance or undefined')
@@ -54,7 +60,7 @@ export default abstract class Error3<Details, Errors> extends Error implements I
       code: this.code,
       message: this.message,
       details: this.details,
-      errors: this.errors.map((error) => error.valueOf()),
+      errors: this.errors.map((error) => error.valueOf() as PlainError),
     }
   }
 
@@ -68,18 +74,18 @@ export default abstract class Error3<Details, Errors> extends Error implements I
   }
 }
 
-function isErrors(value: any): value is Error[] {
+function isErrors(value: unknown): value is Error[] {
   return (Array.isArray(value) && value.every((item) => isErrorObject(item)))
 }
 
-function isObject(value: any): value is Object {
+function isObject(value: unknown): value is Record<string,unknown> {
   return value !== null && typeof value === 'object'
 }
 
-function isErrorObject(value:any): value is Error {
+function isErrorObject(value: unknown): value is Error {
   return isObject(value) && value instanceof Error
 }
 
-function isPlainObject(value:any):value is Object {
+function isPlainObject(value: unknown): value is PlainObject {
   return value.constructor.toString() === Object.toString()
 }
